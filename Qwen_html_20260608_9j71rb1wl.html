@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketBoost | Вывод товаров на Ozon, инвестиции и запуск магазинов</title>
+    <style>
+        :root {
+            --primary: #005BFF;
+            --primary-dark: #0042cc;
+            --accent: #F91155;
+            --accent-hover: #d60e48;
+            --dark: #1A1A1A;
+            --gray: #F5F7FA;
+            --light-blue: #F0F4FF;
+            --light-green: #F0FFF4;
+            --text: #333333;
+            --white: #FFFFFF;
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { color: var(--text); line-height: 1.6; background: var(--white); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn { display: inline-block; padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; font-size: 16px; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-accent { background: var(--accent); color: var(--white); }
+        .btn-accent:hover { background: var(--accent-hover); }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+        .btn-outline:hover { background: var(--primary); color: var(--white); }
+        .btn-green { background: #10B981; color: var(--white); }
+        .btn-green:hover { background: #059669; }
+
+        /* Header */
+        header { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; padding: 15px 0; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { font-weight: 500; font-size: 14px; }
+        .nav-links a:hover { color: var(--primary); }
+        @media(max-width: 900px) { .nav-links { display: none; } }
+
+        /* Hero */
+        .hero { padding: 80px 0; text-align: center; background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%); }
+        .hero h1 { font-size: 48px; font-weight: 800; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 20px; color: #555; max-width: 850px; margin: 0 auto 40px; }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* Founder */
+        .founder { padding: 80px 0; background: var(--white); }
+        .founder-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 50px; align-items: center; }
+        .founder-img { width: 100%; height: 400px; object-fit: cover; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .founder-content h2 { font-size: 36px; margin-bottom: 10px; color: var(--dark); }
+        .founder-name { font-size: 24px; color: var(--primary); font-weight: 700; margin-bottom: 20px; }
+        .founder-list li { margin-bottom: 12px; padding-left: 25px; position: relative; }
+        .founder-list li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+
+        /* Infrastructure */
+        .infrastructure { padding: 80px 0; background: var(--light-blue); }
+        .infra-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .infra-card { background: var(--white); padding: 30px 25px; border-radius: var(--radius); box-shadow: 0 4px 15px rgba(0,91,255,0.08); text-align: center; transition: 0.3s; border-top: 4px solid var(--primary); }
+        .infra-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,91,255,0.15); }
+        .infra-icon { font-size: 48px; margin-bottom: 15px; }
+        .infra-card h3 { font-size: 20px; margin-bottom: 10px; color: var(--dark); }
+        .infra-card p { font-size: 15px; color: #555; }
+
+        /* Sections General */
+        .section { padding: 80px 0; }
+        .bg-gray { background: var(--gray); }
+        .bg-green { background: var(--light-green); }
+        .section-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--dark); }
+        .section-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+        /* Cards */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--white); padding: 30px; border-radius: var(--radius); box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+        .card h3 { font-size: 22px; margin-bottom: 15px; color: var(--primary); }
+        .card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .card ul li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+
+        /* Entrepreneur Section */
+        .entrepreneur { padding: 80px 0; background: var(--light-green); }
+        .price-tag { display: inline-block; background: #10B981; color: white; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 15px; }
+        .services-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
+        .service-item { background: white; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #10B981; font-weight: 500; }
+
+        /* Partners */
+        .partners-section { padding: 80px 0; background: var(--white); }
+        .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .partner-card { background: var(--gray); padding: 25px 20px; border-radius: var(--radius); text-align: center; transition: 0.3s; border: 2px solid transparent; }
+        .partner-card:hover { border-color: var(--primary); background: var(--white); box-shadow: 0 4px 15px rgba(0,91,255,0.1); }
+        .partner-card .partner-icon { font-size: 36px; margin-bottom: 10px; }
+        .partner-card h4 { font-size: 17px; margin-bottom: 8px; color: var(--dark); }
+        .partner-card p { font-size: 13px; color: #666; }
+        .partner-category { text-align: center; margin: 40px 0 20px; font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .partner-category:first-child { margin-top: 0; }
+
+        /* Cases */
+        .case-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; height: 100%; }
+        .case-header { background: var(--primary); color: var(--white); padding: 20px 30px; }
+        .case-header h3 { font-size: 22px; margin: 0; }
+        .case-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+        .case-stat { display: flex; justify-content: space-between; margin-top: auto; padding-top: 20px; border-top: 1px solid #eee; flex-wrap: wrap; gap: 15px; }
+        .stat-item { text-align: center; flex: 1; min-width: 80px; }
+        .stat-num { font-size: 24px; font-weight: 800; color: var(--accent); display: block; }
+        .stat-label { font-size: 13px; color: #666; }
+        .partners { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .partner-tag { background: #eef2ff; color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+
+        /* Form */
+        .form-section { background: var(--dark); color: var(--white); }
+        .form-section .section-title { color: var(--white); }
+        .form-container { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--radius); color: var(--text); }
+        .tabs { display: flex; margin-bottom: 30px; border-bottom: 2px solid #eee; flex-wrap: wrap; }
+        .tab { flex: 1; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: 600; color: #888; transition: 0.3s; font-size: 14px; min-width: 120px; }
+        .tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); margin-bottom: -2px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .form-group input:focus { outline: none; border-color: var(--primary); }
+
+        /* Footer */
+        footer { background: #111; color: #888; padding: 40px 0; font-size: 14px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 30px; }
+        .footer h4 { color: var(--white); margin-bottom: 15px; font-size: 18px; }
+        .disclaimer { border-top: 1px solid #333; padding-top: 20px; font-size: 12px; line-height: 1.5; }
+
+        @media(max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .founder-grid { grid-template-columns: 1fr; }
+            .founder-img { height: 350px; }
+            .case-stat { flex-direction: row; justify-content: space-around; }
+            .section-title { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-flex">
+            <div class="logo">MarketBoost</div>
+            <nav class="nav-links">
+                <a href="#founder">Основатель</a>
+                <a href="#infrastructure">Инфраструктура</a>
+                <a href="#suppliers">Поставщикам</a>
+                <a href="#entrepreneur">Запуск с нуля</a>
+                <a href="#investors">Инвесторам</a>
+                <a href="#cases">Кейсы</a>
+                <a href="#partners">Партнёры</a>
+            </nav>
+            <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Превращаем товары в бренды-лидеры на Ozon</h1>
+            <p>Комплексный вывод товаров народного потребления на маркетплейсы. Запуск магазинов с нуля под ключ. Работаем с производителями на условиях реализации или отсрочки. Инвесторам предлагаем 30–40% годовых на реальных активах.</p>
+            <div class="hero-buttons">
+                <a href="#suppliers" class="btn btn-primary">Я производитель</a>
+                <a href="#entrepreneur" class="btn btn-green">Хочу запустить магазин</a>
+                <a href="#investors" class="btn btn-outline">Я инвестор</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder -->
+    <section id="founder" class="founder">
+        <div class="container founder-grid">
+            <!-- 
+                ========================================================================
+                ИНСТРУКЦИЯ ПО ЗАМЕНЕ ФОТО:
+                Замените ссылку внутри src="..." на прямую ссылку на ваше фото.
+                Например: src="https://mysite.com/photo.jpg" или src="my-photo.jpg"
+                ========================================================================
+            -->
+            <img src="https://via.placeholder.com/400x500/005BFF/FFFFFF?text=Вставьте+ссылку+на+ваше+фото+здесь" 
+                 alt="Финошкин Евгений Александрович" 
+                 class="founder-img">
+            
+            <div class="founder-content">
+                <h2>Экспертиза, которой доверяют</h2>
+                <div class="founder-name">Финошкин Евгений Александрович</div>
+                <ul class="founder-list">
+                    <li><strong>20 лет опыта</strong> управления закупками и продажами в компаниях с оборотами до 4 млрд рублей.</li>
+                    <li>Успешный рост до позиций коммерческого и операционного директора, управление командами до 30 человек.</li>
+                    <li><strong>Более 10 лет в онлайн-торговле:</strong> создание и управление интернет-проектами (строительный инструмент, хозтовары, зоотовары, ювелирные украшения).</li>
+                    <li>Опыт ведения проектов по развитию продаж на маркетплейсах с годовыми объемами от 19 млн руб.</li>
+                    <li><strong>Действующий селлер на Ozon</strong> и владелец зарегистрированной торговой марки <strong>Homeguard</strong>.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infrastructure -->
+    <section id="infrastructure" class="infrastructure">
+        <div class="container">
+            <h2 class="section-title">Наша инфраструктура и ресурсы</h2>
+            <p class="section-subtitle">Мы не просто консультируем. Мы предоставляем полный цикл услуг через собственных специалистов и проверенных партнеров.</p>
+            <div class="infra-grid">
+                <div class="infra-card">
+                    <div class="infra-icon">🏭</div>
+                    <h3>Фулфилмент в Нижнем Новгороде</h3>
+                    <p>Партнерский фулфилмент-центр. Приемка, надежное хранение, качественная упаковка и быстрая отгрузка на склады Ozon (FBO/FBS).</p>
+                </div>
+                <div class="infra-card">
+                    <div class="infra-icon">🎨</div>
+                    <h3>Штат из 3-х дизайнеров</h3>
+                    <p>Профессиональная разработка продающих карточек товара, богатой инфографики и уникальной дизайнерской упаковки для вашего бренда.</p>
+                </div>
+                <div class="infra-card">
+                    <div class="infra-icon">📋</div>
+                    <h3>Специалист по сертификации</h3>
+                    <p>Помощь в получении всех необходимых документов: декларации соответствия, сертификаты, отказные письма для беспрепятственной торговли.</p>
+                </div>
+                <div class="infra-card">
+                    <div class="infra-icon">™️</div>
+                    <h3>Регистрация торговых знаков</h3>
+                    <p>Полное юридическое сопровождение регистрации вашего бренда: от проверки названия на уникальность до получения свидетельства Роспатента.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suppliers -->
+    <section id="suppliers" class="section bg-gray">
+        <div class="container">
+            <h2 class="section-title">Поставщикам и Производителям</h2>
+            <p class="section-subtitle">Масштабируйте продажи, не отвлекая ресурсы от основного производства</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>🤝 Гибкие финансовые условия</h3>
+                    <ul>
+                        <li>Прием товаров на реализацию</li>
+                        <li>Отсрочка платежа 2–3 месяца (под ротацию и пополнение стоков)</li>
+                        <li>Прозрачная еженедельная отчетность по продажам и остаткам</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🚀 Мы берем на себя весь цикл</h3>
+                    <ul>
+                        <li>Регистрация бренда и сертификация продукции</li>
+                        <li>Создание дизайнерской упаковки и инфографики</li>
+                        <li>SEO-оптимизация карточек и управление рекламой</li>
+                        <li>Логистика и работа с отзывами/рейтингом</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>📈 Ваш результат</h3>
+                    <ul>
+                        <li>Новый канал сбыта без затрат на штат маркетологов</li>
+                        <li>Рост узнаваемости бренда на федеральном уровне</li>
+                        <li>Стабильные платежи по согласованному графику</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#contact" class="btn btn-primary" onclick="setTab('supplier')">Стать поставщиком</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Entrepreneur Section -->
+    <section id="entrepreneur" class="entrepreneur">
+        <div class="container">
+            <h2 class="section-title">Предпринимателям: запуск магазина на Ozon с нуля</h2>
+            <p class="section-subtitle">У вас есть 100–200 тысяч рублей и желание начать своё дело? Мы поможем запустить прибыльный магазин на маркетплейсе под ключ — от идеи до первых продаж.</p>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>🎯 Для кого это</h3>
+                    <ul>
+                        <li>Действующие предприниматели, которые хотят выйти в онлайн</li>
+                        <li>Те, кто хочет запустить своё дело с бюджетом от 100 000 ₽</li>
+                        <li>Владельцы офлайн-бизнеса, ищущие новый канал сбыта</li>
+                        <li>Начинающие селлеры, которым нужна экспертная поддержка</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>💼 Что вы получаете</h3>
+                    <ul>
+                        <li>Персональную стратегию выхода на Ozon</li>
+                        <li>Подбор ниши и ходовых товаров с высокой маржой</li>
+                        <li>Детальный расчёт юнит-экономики и точки безубыточности</li>
+                        <li>Полное сопровождение на всех этапах запуска</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>⚡ Форматы работы</h3>
+                    <ul>
+                        <li><strong>Консультация</strong> — разбор вашей идеи и стратегический план</li>
+                        <li><strong>Аудит</strong> — оценка текущего магазина и точки роста</li>
+                        <li><strong>Сопровождение</strong> — ведём ваш магазин «за руку» до результата</li>
+                        <li><strong>Запуск под ключ</strong> — делаем всё за вас</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <h3 style="font-size: 24px; margin-bottom: 25px; color: var(--dark);">Полный спектр услуг для вашего магазина</h3>
+                <div class="services-list">
+                    <div class="service-item">📊 Подбор ниши и товара</div>
+                    <div class="service-item">💰 Расчёт юнит-экономики</div>
+                    <div class="service-item">🎨 Дизайн карточек и упаковки</div>
+                    <div class="service-item">📋 Сертификация продукции</div>
+                    <div class="service-item">™️ Регистрация товарного знака</div>
+                    <div class="service-item">🚚 Настройка логистики FBO/FBS</div>
+                    <div class="service-item">📈 SEO-оптимизация карточек</div>
+                    <div class="service-item">🎯 Настройка рекламы</div>
+                    <div class="service-item">💬 Работа с отзывами</div>
+                    <div class="service-item">📊 Сквозная аналитика</div>
+                    <div class="service-item">🏭 Фулфилмент и хранение</div>
+                    <div class="service-item">🤝 Участие в акциях Ozon</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#contact" class="btn btn-green" onclick="setTab('entrepreneur')">Получить план запуска моего магазина</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investors -->
+    <section id="investors" class="section">
+        <div class="container">
+            <h2 class="section-title">Инвесторам</h2>
+            <p class="section-subtitle">Инвестиции в реальный товарный бизнес с доходностью выше банковской</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>💰 Параметры сделки</h3>
+                    <ul>
+                        <li>Сумма входа: <strong>от 100 000 ₽ до 3 000 000 ₽</strong></li>
+                        <li>Срок инвестирования: <strong>минимум 12 месяцев</strong></li>
+                        <li>Доходность: <strong>30–40% годовых</strong></li>
+                        <li>Выплаты: ежемесячно или в конце срока (по договоренности)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🛡️ Безопасность</h3>
+                    <ul>
+                        <li>Юридическое оформление (договор займа)</li>
+                        <li>Обеспечение сделки реальными товарными остатками</li>
+                        <li>Регулярная финансовая отчетность</li>
+                        <li>Прозрачная модель: деньги идут на закупку ликвидного товара</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🎯 Куда идут средства</h3>
+                    <ul>
+                        <li>Закупка ходовых позиций у проверенных поставщиков</li>
+                        <li>Масштабирование собственных брендов (Homeguard, Домовой)</li>
+                        <li>Пополнение оборотных средств для участия в глобальных акциях Ozon</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#contact" class="btn btn-accent" onclick="setTab('investor')">Получить презентацию для инвестора</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases -->
+    <section id="cases" class="section bg-gray">
+        <div class="container">
+            <h2 class="section-title">Наши кейсы</h2>
+            <p class="section-subtitle">Реальные цифры и результаты нашей работы</p>
+            <div class="cards-grid">
+                <!-- Case 1: Homeguard -->
+                <div class="case-card">
+                    <div class="case-header"><h3>Homeguard (Умный дом)</h3></div>
+                    <div class="case-body">
+                        <p><strong>Задача:</strong> Создание бренда с нуля и вывод на Ozon.</p>
+                        <p style="margin-top: 15px;"><strong>Решение:</strong> Полная регистрация бренда и сертификация продукции. Разработка уникальной дизайнерской упаковки. Настройка сквозной аналитики.</p>
+                        <div class="case-stat">
+                            <div class="stat-item"><span class="stat-num">19 млн ₽</span><span class="stat-label">Выручка в год</span></div>
+                            <div class="stat-item"><span class="stat-num">18 000+</span><span class="stat-label">Заказов</span></div>
+                            <div class="stat-item"><span class="stat-num">7 000+</span><span class="stat-label">Отзывов</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 2: Домовой -->
+                <div class="case-card">
+                    <div class="case-header"><h3>«Домовой» (Товары для дома)</h3></div>
+                    <div class="case-body">
+                        <p><strong>Задача:</strong> Масштабирование продаж за счет оптимизации цепочек поставок.</p>
+                        <p style="margin-top: 15px;"><strong>Решение:</strong> Выстроены прямые договоры с российскими производителями и крупными импортерами.</p>
+                        <div class="partners">
+                            <span class="partner-tag">Завод «Скобис»</span>
+                            <span class="partner-tag">Холдинг «Сималенд»</span>
+                            <span class="partner-tag">«Экобруш»</span>
+                        </div>
+                        <div class="case-stat">
+                            <div class="stat-item"><span class="stat-num">2.5 млн ₽</span><span class="stat-label">Выручка за 6 мес.</span></div>
+                            <div class="stat-item"><span class="stat-num">29 000</span><span class="stat-label">Заказов</span></div>
+                            <div class="stat-item"><span class="stat-num">8 600</span><span class="stat-label">Отзывов</span></div>
+                            <div class="stat-item"><span class="stat-num">5.0</span><span class="stat-label">Оценка</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 3: Полезные мелочи -->
+                <div class="case-card">
+                    <div class="case-header"><h3>«Полезные мелочи»</h3></div>
+                    <div class="case-body">
+                        <p><strong>Задача:</strong> Быстрый вывод нового магазина на стабильные продажи.</p>
+                        <p style="margin-top: 15px;"><strong>Решение:</strong> Оптимизация карточек, запуск рекламных кампаний, активная работа с отзывами и рейтингом.</p>
+                        <div class="case-stat">
+                            <div class="stat-item"><span class="stat-num">12 000</span><span class="stat-label">Заказов за 5 мес.</span></div>
+                            <div class="stat-item"><span class="stat-num">5 200</span><span class="stat-label">Отзывов</span></div>
+                            <div class="stat-item"><span class="stat-num">4.8</span><span class="stat-label">Оценка</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 4: ИП Милютин -->
+                <div class="case-card">
+                    <div class="case-header"><h3>ИП Милютин (Управление в 2025)</h3></div>
+                    <div class="case-body">
+                        <p><strong>Задача:</strong> Комплексное управление магазином на аутсорсе.</p>
+                        <p style="margin-top: 15px;"><strong>Решение:</strong> Полное операционное управление: от закупки до логистики и маркетинга.</p>
+                        <div class="case-stat">
+                            <div class="stat-item"><span class="stat-num">33 млн ₽</span><span class="stat-label">Оборот</span></div>
+                            <div class="stat-item"><span class="stat-num">113 000</span><span class="stat-label">Заказов</span></div>
+                            <div class="stat-item"><span class="stat-num">35 500</span><span class="stat-label">Отзывов</span></div>
+                            <div class="stat-item"><span class="stat-num">4.8</span><span class="stat-label">Рейтинг</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case 5: ИП Казаков -->
+                <div class="case-card">
+                    <div class="case-header"><h3>ИП Казаков</h3></div>
+                    <div class="case-body">
+                        <p><strong>Задача:</strong> Масштабирование существующего бизнеса и улучшение юнит-экономики.</p>
+                        <p style="margin-top: 15px;"><strong>Решение:</strong> Оптимизация ассортимента, ценообразования и рекламных стратегий для роста маржинальности.</p>
+                        <div class="case-stat">
+                            <div class="stat-item"><span class="stat-num">10.4 млн ₽</span><span class="stat-label">Оборот</span></div>
+                            <div class="stat-item"><span class="stat-num">19 500</span><span class="stat-label">Заказов</span></div>
+                            <div class="stat-item"><span class="stat-num">6 200</span><span class="stat-label">Отзывов</span></div>
+                            <div class="stat-item"><span class="stat-num">4.8</span><span class="stat-label">Рейтинг</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Partners Section -->
+    <section id="partners" class="partners-section">
+        <div class="container">
+            <h2 class="section-title">Наши партнёры</h2>
+            <p class="section-subtitle">Мы работаем только с проверенными компаниями, которые обеспечивают надёжность и скорость на каждом этапе</p>
+
+            <div class="partner-category">🏦 Финансовые партнёры и банки</div>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-icon">🟡</div>
+                    <h4>Банк «Точка»</h4>
+                    <p>Белый импорт товаров, валютный контроль, РКО для селлеров</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">🔵</div>
+                    <h4>Озон Банк</h4>
+                    <p>Финансирование селлеров, оборотные кредиты под закупку товара</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">🟢</div>
+                    <h4>Яндекс Банк</h4>
+                    <p>Финансовые продукты для продавцов маркетплейсов</p>
+                </div>
+            </div>
+
+            <div class="partner-category">🚚 Логистика и доставка</div>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-icon">📦</div>
+                    <h4>СДЭК</h4>
+                    <p>Доставка по всей России, фулфилмент, работа с возвратами</p>
+                </div>
+            </div>
+
+            <div class="partner-category">🏭 Производители и поставщики</div>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-icon">🔩</div>
+                    <h4>Завод «Скобис»</h4>
+                    <p>Российский производитель фурнитуры и товаров для дома</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">🎁</div>
+                    <h4>Холдинг «Сималенд»</h4>
+                    <p>Крупнейший импортёр и оптовый поставщик товаров народного потребления</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">🧹</div>
+                    <h4>«Экобруш»</h4>
+                    <p>Российский производитель щёточной продукции и хозтоваров</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="section form-section">
+        <div class="container">
+            <h2 class="section-title">Обсудим сотрудничество?</h2>
+            <div class="form-container">
+                <div class="tabs">
+                    <div class="tab active" id="tab-supplier" onclick="setTab('supplier')">Я Поставщик</div>
+                    <div class="tab" id="tab-entrepreneur" onclick="setTab('entrepreneur')">Запуск магазина</div>
+                    <div class="tab" id="tab-investor" onclick="setTab('investor')">Я Инвестор</div>
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" placeholder="+7 (999) 000-00-00" required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" placeholder="example@mail.ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Комментарий (необязательно)</label>
+                        <textarea rows="3" id="formComment" placeholder="Например: Производим текстиль, хотим обсудить отсрочку 2 месяца"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
+                    <p style="font-size: 12px; color: #888; text-align: center; margin-top: 15px;">
+                        Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>MarketBoost</h4>
+                    <p>Профессиональный вывод товаров на маркетплейсы, запуск магазинов под ключ и управление инвестициями в e-commerce.</p>
+                </div>
+                <div>
+                    <h4>Контакты</h4>
+                    <p>📞 +7 (XXX) XXX-XX-XX</p>
+                    <p>✉️ info@marketboost.ru</p>
+                    <p>📍 г. Нижний Новгород</p>
+                </div>
+                <div>
+                    <h4>Реквизиты</h4>
+                    <p>ИП Финошкин Евгений Александрович</p>
+                    <p>ИНН: 525821117212</p>
+                    <p>ОГРНИП: [Ваш ОГРНИП]</p>
+                </div>
+            </div>
+            <div class="disclaimer">
+                <p>© 2026 MarketBoost. Все права защищены.</p>
+                <p style="margin-top: 10px; color: #666;">
+                    *Информация на сайте не является индивидуальной инвестиционной рекомендацией. Финансовые инструменты либо операции, упомянутые на сайте, могут не подходить вам. Прошлые результаты не гарантируют будущих доходов.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setTab(type) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            if(type === 'supplier') {
+                document.getElementById('tab-supplier').classList.add('active');
+                document.getElementById('formComment').placeholder = "Например: Производим хозтовары, хотим обсудить условия отсрочки 2 месяца";
+            } else if(type === 'entrepreneur') {
+                document.getElementById('tab-entrepreneur').classList.add('active');
+                document.getElementById('formComment').placeholder = "Например: Хочу запустить магазин на Ozon, бюджет 200 000 руб., интересна ниша товаров для дома";
+            } else {
+                document.getElementById('tab-investor').classList.add('active');
+                document.getElementById('formComment').placeholder = "Например: Интересует инвестиция 500 000 руб. на срок 12 месяцев";
+            }
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в течение 24 часов.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
