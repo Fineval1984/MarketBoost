@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2B-услуги | Регламенты, KPI, мотивация, трекинг | MarketBoost</title>
+<style>
+:root {
+  --primary: #005BFF;
+  --primary-dark: #0042cc;
+  --accent: #F91155;
+  --accent-hover: #d60e48;
+  --dark: #1A1A1A;
+  --gray: #F5F7FA;
+  --light-blue: #F0F4FF;
+  --light-purple: #F5F3FF;
+  --text: #333333;
+  --white: #FFFFFF;
+  --success: #10B981;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+body { color: var(--text); line-height: 1.6; background: var(--white); }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.btn { display: inline-block; padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; font-size: 16px; }
+.btn-primary { background: var(--primary); color: var(--white); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.btn-dark { background: var(--dark); color: var(--white); }
+.btn-dark:hover { background: #000; }
+.btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+
+header { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; padding: 15px 0; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: 800; color: var(--primary); }
+.nav-links { display: flex; gap: 18px; }
+.nav-links a { font-weight: 500; font-size: 14px; transition: 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+@media(max-width: 1100px) { .nav-links { display: none; } }
+
+.hero { padding: 100px 0 80px; background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%); }
+.hero h1 { font-size: 48px; font-weight: 800; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+.hero p { font-size: 20px; color: #555; max-width: 850px; margin: 0 auto 40px; }
+.hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+.section { padding: 80px 0; }
+.bg-gray { background: var(--gray); }
+.bg-purple { background: var(--light-purple); }
+.section-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--dark); }
+.section-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+/* Service Items */
+.service-item { margin-bottom: 60px; padding: 40px; background: var(--white); border-radius: var(--radius); border: 1px solid #eee; transition: 0.3s; }
+.service-item:hover { box-shadow: var(--shadow-lg); border-color: var(--primary); }
+.service-header { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 30px; }
+.service-icon-large { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #06b6d4); color: var(--white); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; flex-shrink: 0; }
+.service-title h3 { font-size: 28px; margin-bottom: 10px; color: var(--dark); }
+.service-title p { font-size: 17px; color: #666; }
+.service-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin-top: 30px; }
+.service-details h4 { margin-bottom: 15px; color: var(--dark); font-size: 18px; }
+.service-details ul { list-style: none; margin-bottom: 30px; }
+.service-details li { padding: 10px 0; padding-left: 36px; position: relative; font-size: 15px; }
+.service-details li::before { content: '✓'; position: absolute; left: 0; top: 10px; width: 24px; height: 24px; background: var(--success); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.service-price { background: var(--gray); padding: 30px; border-radius: var(--radius); border: 2px solid #eee; }
+.price-tag { font-size: 36px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+.price-desc { font-size: 14px; color: #666; margin-bottom: 20px; }
+.price-features { list-style: none; }
+.price-features li { padding: 8px 0; font-size: 14px; }
+.price-features li::before { content: '•'; margin-right: 10px; color: var(--primary); font-weight: bold; }
+
+/* Process */
+.process-steps { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 40px auto 0; }
+.process-step { display: flex; gap: 24px; padding: 24px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); }
+.step-num { flex-shrink: 0; width: 48px; height: 48px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+.step-content h3 { margin-bottom: 8px; color: var(--dark); }
+.step-content p { color: #666; }
+
+/* Form */
+.form-section { background: var(--dark); color: var(--white); }
+.form-section .section-title { color: var(--white); }
+.form-container { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--radius); color: var(--text); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+.form-group input:focus { outline: none; border-color: var(--primary); }
+
+footer { background: #111; color: #888; padding: 40px 0; font-size: 14px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 30px; }
+.footer h4 { color: var(--white); margin-bottom: 15px; font-size: 18px; }
+.disclaimer { border-top: 1px solid #333; padding-top: 20px; font-size: 12px; line-height: 1.5; }
+
+@media(max-width: 900px) {
+  .service-grid { grid-template-columns: 1fr; }
+  .service-header { flex-direction: column; }
+}
+@media(max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 17px; }
+  .section-title { font-size: 28px; }
+  .service-item { padding: 24px; }
+  .service-title h3 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-flex">
+    <div class="logo">MarketBoost</div>
+    <nav class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="suppliers.html">Поставщикам</a>
+      <a href="entrepreneur.html">Запуск магазина</a>
+      <a href="ozon-services.html">Услуги Ozon</a>
+      <a href="investors.html">Инвесторам</a>
+      <a href="b2b.html" class="active">B2B-услуги</a>
+    </nav>
+    <a href="#contact" class="btn btn-dark">Обсудить проект</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>B2B-услуги для бизнеса</h1>
+    <p>Оцифровка должностей, система KPI, мотивация, трекинг задач и дорожные карты проектов. Выстраиваем прозрачные и измеримые процессы для роста вашего бизнеса.</p>
+    <div class="hero-buttons">
+      <a href="#reglament" class="btn btn-primary">Оцифровка должностей</a>
+      <a href="#kpi" class="btn btn-outline">Система KPI</a>
+      <a href="#contact" class="btn btn-dark">Обсудить проект</a>
+    </div>
+  </div>
+</section>
+
+<section id="reglament" class="section bg-purple">
+  <div class="container">
+    <div class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">📋</div>
+        <div class="service-title">
+          <h3>Оцифровка должностей: регламент как рабочий инструмент</h3>
+          <p>Превращаем опыт сотрудника в задачник: каждая задача с целью, периодичностью, критериями приёмки и инструкцией. Переносим в ваш трекер.</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Что включает:</h4>
+          <ul>
+            <li>Интервью с носителем функции — фиксируем реальную работу</li>
+            <li>Выделение задач: цель, периодичность, срок, критерии приёмки</li>
+            <li>Инструкции и шпаргалки: чек-листы, примеры «хорошо/плохо»</li>
+            <li>Структурирование регламента по приоритетам и ролям</li>
+            <li>Перенос в трекер: карточки, поля, статусы, автоматизации</li>
+            <li>Карта исключений и эскалаций</li>
+            <li>Обучение команды работе с регламентом</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>Задачник с параметрами — сразу понятно, что и когда делать</li>
+            <li>Новый сотрудник может работать сразу по инструкциям</li>
+            <li>Критерии приёмки — чёткие правила «сделано/не сделано»</li>
+            <li>Готовность к автоматизации и ИИ-агентам</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">от 100 000 ₽</div>
+          <div class="price-desc">за одну должность · Срок: 7-14 дней</div>
+          <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
+            Стоимость привязана к среднемесячному доходу должности ±
+          </p>
+          <ul class="price-features">
+            <li>Полный цикл оцифровки</li>
+            <li>Перенос в ваш трекер</li>
+            <li>Обучение команды</li>
+            <li>Поддержка 1 месяц</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Заказать аудит должности</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kpi" class="section">
+  <div class="container">
+    <div class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">📊</div>
+        <div class="service-title">
+          <h3>Система KPI и мотивации</h3>
+          <p>Разработка системы ключевых показателей эффективности и прозрачной системы бонусов, привязанной к результатам</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Что включает:</h4>
+          <ul>
+            <li>Аудит текущих процессов и метрик</li>
+            <li>Определение KPI по SMART для каждой должности</li>
+            <li>Разработка системы мотивации: базовая + бонусная часть</li>
+            <li>Настройка дашбордов и отчетов</li>
+            <li>Интеграция с CRM/трекерами</li>
+            <li>Грейды и карьерные треки</li>
+            <li>Расчет ФОТ и бюджетирование</li>
+            <li>Обучение руководителей и сотрудников</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>Прозрачная система оценки результатов</li>
+            <li>Мотивация сотрудников привязана к KPI</li>
+            <li>Рост производительности на 30-40%</li>
+            <li>Снижение текучести кадров</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">от 150 000 ₽</div>
+          <div class="price-desc">за отдел · Срок: 14-21 день</div>
+          <ul class="price-features">
+            <li>Полный аудит процессов</li>
+            <li>Разработка KPI и мотивации</li>
+            <li>Настройка дашбордов</li>
+            <li>Обучение команды</li>
+            <li>Поддержка 2 месяца</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Внедрить систему KPI</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-gray">
+  <div class="container">
+    <div class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">✅</div>
+        <div class="service-title">
+          <h3>Трекинг задач и дорожные карты</h3>
+          <p>Внедрение системы контроля исполнения задач и стратегическое планирование проектов с четкими этапами и сроками</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Трекинг задач включает:</h4>
+          <ul>
+            <li>Настройка трекера (YouGile, Kaiten, Битрикс24, Notion)</li>
+            <li>Регулярные sync-встречи и стендапы</li>
+            <li>Отчетность по статусам и блокерам</li>
+            <li>Выявление узких мест и эскалация проблем</li>
+            <li>Автоматизация рутинных процессов</li>
+          </ul>
+          <h4>Дорожные карты включают:</h4>
+          <ul>
+            <li>Декомпозиция стратегических целей</li>
+            <li>Timeline и ключевые вехи</li>
+            <li>Распределение ресурсов и ответственности</li>
+            <li>Управление рисками и зависимостями</li>
+            <li>Регулярный пересмотр и корректировка</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>90% задач выполняются в срок</li>
+            <li>Прозрачность процессов для руководства</li>
+            <li>Снижение операционных затрат на 40%</li>
+            <li>Ускорение реализации проектов в 2 раза</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">от 80 000 ₽</div>
+          <div class="price-desc">за проект · Срок: 7-14 дней</div>
+          <ul class="price-features">
+            <li>Настройка трекера</li>
+            <li>Разработка дорожной карты</li>
+            <li>Обучение команды</li>
+            <li>Сопровождение 1 месяц</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Внедрить трекинг</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Как мы работаем</h2>
+    <p class="section-subtitle">От диагностики до внедрения — прозрачный процесс с измеримыми результатами</p>
+    
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Диагностика</h3>
+          <p>Аудит текущих процессов, интервью с командой, выявление узких мест и точек роста. Срок: 3-5 дней.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Проектирование</h3>
+          <p>Разработка концепции системы KPI/мотивации/трекинга. Согласование метрик и процессов. Срок: 5-7 дней.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Внедрение</h3>
+          <p>Настройка инструментов, создание шаблонов, интеграция с существующими системами. Срок: 7-14 дней.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Обучение</h3>
+          <p>Тренинги для руководителей и сотрудников, создание инструкций и шпаргалок. Срок: 2-3 дня.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Поддержка</h3>
+          <p>Сопровождение 1-3 месяца: корректировки, ответы на вопросы, оптимизация процессов.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-gray">
+  <div class="container">
+    <h2 class="section-title">Результаты наших клиентов</h2>
+    <p class="section-subtitle">Средние показатели после внедрения B2B-услуг</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px;">
+      <div style="text-align: center; padding: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 8px;">+35%</div>
+        <div style="font-weight: 600;">Рост производительности</div>
+      </div>
+      <div style="text-align: center; padding: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 8px;">-40%</div>
+        <div style="font-weight: 600;">Операционные затраты</div>
+      </div>
+      <div style="text-align: center; padding: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 8px;">90%</div>
+        <div style="font-weight: 600;">Задач в срок</div>
+      </div>
+      <div style="text-align: center; padding: 32px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 8px;">x2</div>
+        <div style="font-weight: 600;">Прозрачность процессов</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section form-section">
+  <div class="container">
+    <h2 class="section-title">Обсудим ваш B2B-проект</h2>
+    <div class="form-container">
+      <form id="contactForm">
+        <div class="form-group">
+          <label>Ваше имя</label>
+          <input type="text" placeholder="Иван Иванов" required>
+        </div>
+        <div class="form-group">
+          <label>Компания</label>
+          <input type="text" placeholder="ООО "Пример"" required>
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" placeholder="+7 (999) 000-00-00" required>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" placeholder="example@mail.ru" required>
+        </div>
+        <div class="form-group">
+          <label>Какая услуга интересует?</label>
+          <select>
+            <option>Оцифровка должностей</option>
+            <option>Система KPI и мотивации</option>
+            <option>Трекинг задач</option>
+            <option>Дорожные карты проектов</option>
+            <option>Комплексное решение</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Комментарий (необязательно)</label>
+          <textarea rows="3" placeholder="Например: Нужна система KPI для отдела продаж из 10 человек"></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width: 100%;">Обсудить проект</button>
+        <p style="font-size: 12px; color: #888; text-align: center; margin-top: 15px;">
+          Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>MarketBoost</h4>
+        <p>B2B-услуги для бизнеса: оцифровка должностей, система KPI, мотивация, трекинг задач и дорожные карты проектов.</p>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <p>📞 +7 (XXX) XXX-XX-XX</p>
+        <p>✉️ info@marketboost.ru</p>
+        <p>📍 г. Нижний Новгород</p>
+      </div>
+      <div>
+        <h4>Реквизиты</h4>
+        <p>ИП Финошкин Евгений Александрович</p>
+        <p>ИНН: 525821117212</p>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <p>© 2026 MarketBoost. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в течение 24 часов для обсуждения проекта.');
+  this.reset();
+});
+</script>
+
+</body>
+</html>

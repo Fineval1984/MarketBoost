@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Услуги для Ozon и Wildberries | MarketBoost</title>
+<style>
+:root {
+  --primary: #005BFF;
+  --primary-dark: #0042cc;
+  --accent: #F91155;
+  --accent-hover: #d60e48;
+  --dark: #1A1A1A;
+  --gray: #F5F7FA;
+  --light-blue: #F0F4FF;
+  --text: #333333;
+  --white: #FFFFFF;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+body { color: var(--text); line-height: 1.6; background: var(--white); }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.btn { display: inline-block; padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; font-size: 16px; }
+.btn-primary { background: var(--primary); color: var(--white); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+
+header { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; padding: 15px 0; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: 800; color: var(--primary); }
+.nav-links { display: flex; gap: 18px; }
+.nav-links a { font-weight: 500; font-size: 14px; transition: 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+@media(max-width: 1100px) { .nav-links { display: none; } }
+
+.hero { padding: 100px 0 80px; background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%); }
+.hero h1 { font-size: 48px; font-weight: 800; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+.hero p { font-size: 20px; color: #555; max-width: 850px; margin: 0 auto 40px; }
+.hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+.section { padding: 80px 0; }
+.bg-gray { background: var(--gray); }
+.bg-blue { background: var(--light-blue); }
+.section-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--dark); }
+.section-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+/* Service Items */
+.service-item { margin-bottom: 60px; padding: 40px; background: var(--white); border-radius: var(--radius); border: 1px solid #eee; transition: 0.3s; }
+.service-item:hover { box-shadow: var(--shadow-lg); border-color: var(--primary); }
+.service-header { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 30px; }
+.service-icon-large { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #06b6d4); color: var(--white); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; flex-shrink: 0; }
+.service-title h3 { font-size: 28px; margin-bottom: 10px; color: var(--dark); }
+.service-title p { font-size: 17px; color: #666; }
+.service-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin-top: 30px; }
+.service-details h4 { margin-bottom: 15px; color: var(--dark); font-size: 18px; }
+.service-details ul { list-style: none; margin-bottom: 30px; }
+.service-details li { padding: 10px 0; padding-left: 36px; position: relative; font-size: 15px; }
+.service-details li::before { content: '✓'; position: absolute; left: 0; top: 10px; width: 24px; height: 24px; background: #10B981; color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.service-price { background: var(--gray); padding: 30px; border-radius: var(--radius); border: 2px solid #eee; }
+.price-tag { font-size: 36px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+.price-desc { font-size: 14px; color: #666; margin-bottom: 20px; }
+.price-features { list-style: none; }
+.price-features li { padding: 8px 0; font-size: 14px; }
+.price-features li::before { content: '•'; margin-right: 10px; color: var(--primary); font-weight: bold; }
+
+/* Tabs */
+.tabs { display: flex; margin-bottom: 30px; border-bottom: 2px solid #eee; flex-wrap: wrap; }
+.tab { flex: 1; padding: 15px 10px; text-align: center; cursor: pointer; font-weight: 600; color: #888; transition: 0.3s; font-size: 14px; min-width: 120px; }
+.tab.active { color: var(--primary); border-bottom: 3px solid var(--primary); margin-bottom: -2px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, var(--primary), #06b6d4); color: var(--white); text-align: center; padding: 80px 0; }
+.cta-section h2 { color: var(--white); font-size: 36px; margin-bottom: 20px; }
+.cta-section p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+.btn-white { background: var(--white); color: var(--primary); padding: 16px 32px; font-size: 18px; font-weight: 700; }
+.btn-white:hover { background: #f8fafc; transform: translateY(-2px); }
+
+footer { background: #111; color: #888; padding: 40px 0; font-size: 14px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 30px; }
+.footer h4 { color: var(--white); margin-bottom: 15px; font-size: 18px; }
+.disclaimer { border-top: 1px solid #333; padding-top: 20px; font-size: 12px; line-height: 1.5; }
+
+@media(max-width: 900px) {
+  .service-grid { grid-template-columns: 1fr; }
+  .service-header { flex-direction: column; }
+}
+@media(max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 17px; }
+  .section-title { font-size: 28px; }
+  .service-item { padding: 24px; }
+  .service-title h3 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-flex">
+    <div class="logo">MarketBoost</div>
+    <nav class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="suppliers.html">Поставщикам</a>
+      <a href="entrepreneur.html">Запуск магазина</a>
+      <a href="ozon-services.html" class="active">Услуги Ozon</a>
+      <a href="investors.html">Инвесторам</a>
+      <a href="b2b.html">B2B-услуги</a>
+    </nav>
+    <a href="index.html#contact" class="btn btn-primary">Оставить заявку</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Профессиональные услуги для маркетплейсов</h1>
+    <p>Комплексное решение для выхода и масштабирования на Ozon и Wildberries. Каждая услуга — это глубокая экспертиза и измеримый результат.</p>
+    <div class="hero-buttons">
+      <a href="#analysis" class="btn btn-primary">Анализ ниши</a>
+      <a href="#audit" class="btn btn-outline">Аудит кабинета</a>
+      <a href="#seo" class="btn btn-primary">SEO-оптимизация</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Service 1: Niche Analysis -->
+    <div id="analysis" class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">📊</div>
+        <div class="service-title">
+          <h3>Анализ ниши и конкурентов на Ozon</h3>
+          <p>Глубокое исследование рынка перед запуском: найдем прибыльную нишу с низкой конкуренцией и высоким спросом</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Что включает:</h4>
+          <ul>
+            <li>Анализ 50+ конкурентов в вашей категории</li>
+            <li>Оценка объема рынка и спроса (данные за 12 месяцев)</li>
+            <li>Анализ ценовых сегментов и маржинальности</li>
+            <li>Изучение сезонности товара</li>
+            <li>SWOT-анализ конкурентов</li>
+            <li>Выявление незанятых ниш и УТП</li>
+            <li>Анализ отзывов конкурентов (боли клиентов)</li>
+            <li>Рекомендации по позиционированию</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>Отчет на 30-50 страниц с графиками и таблицами</li>
+            <li>Топ-5 перспективных ниш с оценкой потенциала</li>
+            <li>Рекомендации по стартовому ассортименту</li>
+            <li>Стратегия входа на рынок</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">25 000 ₽</div>
+          <div class="price-desc">Срок: 5-7 рабочих дней</div>
+          <ul class="price-features">
+            <li>Глубокий анализ данных</li>
+            <li>Рекомендации от экспертов</li>
+            <li>Презентация результатов</li>
+            <li>Час консультации</li>
+            <li>Повторные правки</li>
+          </ul>
+          <a href="index.html#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Заказать анализ</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service 2: Account Audit -->
+    <div id="audit" class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">🔍</div>
+        <div class="service-title">
+          <h3>Аудит кабинета действующего селлера</h3>
+          <p>Найдем точки роста и ошибки в вашем текущем аккаунте. Увеличим продажи без увеличения бюджета на рекламу</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Что проверяем:</h4>
+          <ul>
+            <li>Карточки товаров (контент, SEO, конверсия)</li>
+            <li>Ценообразование и маржинальность</li>
+            <li>Настройки рекламы (Директ, бустеры)</li>
+            <li>Логистику (FBO/FBS, остатки, география)</li>
+            <li>Рейтинг и отзывы</li>
+            <li>Участие в акциях и промо</li>
+            <li>Аналитику и отчетность</li>
+            <li>Работу с возвратами и браком</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>Детальный отчет с выявленными ошибками</li>
+            <li>Приоритизированный план исправлений</li>
+            <li>Прогноз роста продаж после оптимизации</li>
+            <li>Чек-лист для самостоятельной работы</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">15 000 ₽</div>
+          <div class="price-desc">Срок: 3-5 рабочих дней</div>
+          <ul class="price-features">
+            <li>Полный аудит аккаунта</li>
+            <li>Отчет с рекомендациями</li>
+            <li>Видео-разбор ошибок</li>
+            <li>Час консультации</li>
+          </ul>
+          <a href="index.html#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Заказать аудит</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service 3: Product Selection -->
+    <div class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">🎯</div>
+        <div class="service-title">
+          <h3>Подбор товаров для продажи</h3>
+          <p>Найдем товары с высоким спросом, низкой конкуренцией и хорошей маржой. Только проверенные гипотезы</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Как работаем:</h4>
+          <ul>
+            <li>Анализ трендов и сезонности</li>
+            <li>Поиск товаров с низким уровнем конкуренции</li>
+            <li>Проверка маржинальности (минимум 30%)</li>
+            <li>Анализ поставщиков и цен закупки</li>
+            <li>Оценка логистических расходов</li>
+            <li>Проверка ограничений и сертификатов</li>
+            <li>Тестирование спроса через парсинг</li>
+            <li>Подбор 10-20 товаров для старта</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>Список из 10-20 перспективных товаров</li>
+            <li>Расчет юнит-экономики по каждому</li>
+            <li>Рекомендации по поставщикам</li>
+            <li>План первой закупки</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">20 000 ₽</div>
+          <div class="price-desc">Срок: 7-10 рабочих дней</div>
+          <ul class="price-features">
+            <li>10-20 товаров с расчетами</li>
+            <li>Анализ поставщиков</li>
+            <li>Юнит-экономика</li>
+            <li>Презентация</li>
+            <li>Поддержка при закупке</li>
+          </ul>
+          <a href="index.html#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Подобрать товары</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service 4: Unit Economics -->
+    <div class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">🧮</div>
+        <div class="service-title">
+          <h3>Расчет юнит-экономики товара</h3>
+          <p>Точный расчет прибыльности каждого товара. Поймете реальную маржу до запуска продаж</p>
+        </div>
+      </div>
+      <div class="service-grid">
+        <div class="service-details">
+          <h4>Что считаем:</h4>
+          <ul>
+            <li>Себестоимость товара</li>
+            <li>Логистика (доставка до склада МП)</li>
+            <li>Комиссия маркетплейса</li>
+            <li>Эквайринг</li>
+            <li>Реклама (Директ, бустеры)</li>
+            <li>Участие в акциях (скидки)</li>
+            <li>Налоги (УСН/ОСНО)</li>
+            <li>Возвраты и брак (3-7%)</li>
+            <li>Хранение на складе МП</li>
+            <li>Упаковка и маркировка</li>
+          </ul>
+          <h4>Результат:</h4>
+          <ul>
+            <li>Детальная таблица юнит-экономики</li>
+            <li>Расчет точки безубыточности</li>
+            <li>Рекомендации по цене продажи</li>
+            <li>Прогноз чистой прибыли</li>
+            <li>Сценарии (оптимистичный/реалистичный)</li>
+          </ul>
+        </div>
+        <div class="service-price">
+          <div class="price-tag">5 000 ₽ <span style="font-size:16px;color:#666">/ за 1 SKU</span></div>
+          <div class="price-desc">Срок: 2-3 рабочих дня</div>
+          <ul class="price-features">
+            <li>Полный расчет всех расходов</li>
+            <li>Excel-шаблон</li>
+            <li>Рекомендации</li>
+            <li>Корректировки</li>
+          </ul>
+          <a href="index.html#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Рассчитать экономику</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service 5 & 6: SEO & Design -->
+    <div id="seo" class="service-item">
+      <div class="service-header">
+        <div class="service-icon-large">🎨</div>
+        <div class="service-title">
+          <h3>SEO-оптимизация и дизайн карточек</h3>
+          <p>Создаем карточки, которые продают: видим в поиске и конвертируем просмотры в заказы</p>
+        </div>
+      </div>
+      
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('seo', this)">SEO-оптимизация</button>
+        <button class="tab" onclick="switchTab('design', this)">Дизайн карточки</button>
+      </div>
+
+      <div id="seo" class="tab-content active">
+        <div class="service-grid">
+          <div class="service-details">
+            <h4>SEO-оптимизация включает:</h4>
+            <ul>
+              <li>Сбор семантического ядра (100+ ключей)</li>
+              <li>Анализ поисковых запросов конкурентов</li>
+              <li>Оптимизация названия (до 120 символов)</li>
+              <li>Продающее описание с ключами</li>
+              <li>Заполнение характеристик (100% заполнение)</li>
+              <li>Rich-контент (если доступен)</li>
+              <li>SEO для видео</li>
+              <li>Оптимизация под мобильный поиск</li>
+            </ul>
+            <h4>Результат:</h4>
+            <ul>
+              <li>Рост видимости в поиске на 200-400%</li>
+              <li>Увеличение органического трафика</li>
+              <li>Рост CTR карточки</li>
+              <li>Улучшение ранжирования</li>
+            </ul>
+          </div>
+          <div class="service-price">
+            <div class="price-tag">3 000 ₽ <span style="font-size:16px;color:#666">/ карточка</span></div>
+            <div class="price-desc">При заказе от 10 карточек — 2 500 ₽/шт</div>
+            <ul class="price-features">
+              <li>Семантическое ядро</li>
+              <li>Название + описание</li>
+              <li>Характеристики</li>
+              <li>Rich-контент</li>
+              <li>2 правки</li>
+            </ul>
+            <a href="index.html#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Заказать SEO</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="design" class="tab-content">
+        <div class="service-grid">
+          <div class="service-details">
+            <h4>Дизайн карточки включает:</h4>
+            <ul>
+              <li>Профессиональная фотосъемка (или обработка ваших фото)</li>
+              <li>Инфографика (преимущества, характеристики)</li>
+              <li>Дизайн главного фото (высокий CTR)</li>
+              <li>3-5 дополнительных слайдов</li>
+              <li>Видеообзор товара (до 60 сек)</li>
+              <li>3D-визуализация (если нужно)</li>
+              <li>Адаптация под мобильные</li>
+              <li>A/B тестирование вариантов</li>
+            </ul>
+            <h4>Результат:</h4>
+            <ul>
+              <li>Конверсия в корзину 8-15%</li>
+              <li>CTR главного фото 3-7%</li>
+              <li>Увеличение среднего чека</li>
+              <li>Снижение возвратов</li>
+            </ul>
+          </div>
+          <div class="service-price">
+            <div class="price-tag">8 000 ₽ <span style="font-size:16px;color:#666">/ карточка</span></div>
+            <div class="price-desc">Комплект: фото + инфографика + видео</div>
+            <ul class="price-features">
+              <li>5-7 слайдов инфографики</li>
+              <li>Видео до 60 сек</li>
+              <li>Исходники в PSD/AI</li>
+              <li>3 правки</li>
+              <li>Срок 5-7 дней</li>
+            </ul>
+            <a href="index.html#contact" class="btn btn-primary" style="width:100%;margin-top:20px;justify-content:center">Заказать дизайн</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Готовы увеличить продажи на маркетплейсах?</h2>
+    <p>Выберите нужную услугу или получите комплексное предложение. Первая консультация — бесплатно.</p>
+    <a href="index.html#contact" class="btn btn-white">Получить консультацию</a>
+    <p style="margin-top:24px;font-size:14px;opacity:0.8">📞 Ответим в течение 2 часов · NDA гарантируем</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>MarketBoost</h4>
+        <p>Профессиональные услуги для маркетплейсов: анализ, аудит, SEO, дизайн карточек и полное сопровождение.</p>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <p>📞 +7 (XXX) XXX-XX-XX</p>
+        <p>✉️ info@marketboost.ru</p>
+        <p>📍 г. Нижний Новгород</p>
+      </div>
+      <div>
+        <h4>Реквизиты</h4>
+        <p>ИП Финошкин Евгений Александрович</p>
+        <p>ИНН: 525821117212</p>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <p>© 2026 MarketBoost. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function switchTab(tabName, btn) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>

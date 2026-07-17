@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Поставщикам и Производителям | MarketBoost</title>
+<style>
+:root {
+  --primary: #005BFF;
+  --primary-dark: #0042cc;
+  --accent: #F91155;
+  --accent-hover: #d60e48;
+  --dark: #1A1A1A;
+  --gray: #F5F7FA;
+  --light-blue: #F0F4FF;
+  --light-green: #F0FFF4;
+  --text: #333333;
+  --white: #FFFFFF;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+body { color: var(--text); line-height: 1.6; background: var(--white); }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Buttons */
+.btn { display: inline-block; padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; font-size: 16px; }
+.btn-primary { background: var(--primary); color: var(--white); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.btn-accent { background: var(--accent); color: var(--white); }
+.btn-accent:hover { background: var(--accent-hover); }
+.btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-outline:hover { background: var(--primary); color: var(--white); }
+.btn-green { background: #10B981; color: var(--white); }
+.btn-green:hover { background: #059669; }
+
+/* Header */
+header { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; padding: 15px 0; }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: 800; color: var(--primary); }
+.nav-links { display: flex; gap: 18px; }
+.nav-links a { font-weight: 500; font-size: 14px; transition: 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+@media(max-width: 1100px) { .nav-links { display: none; } }
+
+/* Hero */
+.hero { padding: 100px 0 80px; background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%); }
+.hero h1 { font-size: 48px; font-weight: 800; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+.hero p { font-size: 20px; color: #555; max-width: 850px; margin: 0 auto 40px; }
+.hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+/* Sections */
+.section { padding: 80px 0; }
+.bg-gray { background: var(--gray); }
+.bg-blue { background: var(--light-blue); }
+.bg-green { background: var(--light-green); }
+.section-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--dark); }
+.section-subtitle { text-align: center; font-size: 18px; color: #666; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+/* Cards */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.card { background: var(--white); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); transition: 0.3s; }
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.card h3 { font-size: 22px; margin-bottom: 15px; color: var(--primary); }
+.card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+.card ul li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+
+/* Benefits */
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 40px; }
+.benefit-card { background: var(--white); padding: 30px 25px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; transition: 0.3s; border-top: 4px solid var(--primary); }
+.benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.benefit-icon { font-size: 48px; margin-bottom: 15px; }
+.benefit-card h3 { font-size: 20px; margin-bottom: 10px; color: var(--dark); }
+.benefit-card p { font-size: 15px; color: #555; }
+
+/* Process */
+.process-steps { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 40px auto 0; }
+.process-step { display: flex; gap: 24px; padding: 24px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); }
+.step-num { flex-shrink: 0; width: 48px; height: 48px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+.step-content h3 { margin-bottom: 8px; color: var(--dark); }
+.step-content p { color: #666; }
+
+/* Form */
+.form-section { background: var(--dark); color: var(--white); }
+.form-section .section-title { color: var(--white); }
+.form-container { max-width: 600px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--radius); color: var(--text); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+.form-group input:focus { outline: none; border-color: var(--primary); }
+
+/* Footer */
+footer { background: #111; color: #888; padding: 40px 0; font-size: 14px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 30px; }
+.footer h4 { color: var(--white); margin-bottom: 15px; font-size: 18px; }
+.disclaimer { border-top: 1px solid #333; padding-top: 20px; font-size: 12px; line-height: 1.5; }
+
+@media(max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 17px; }
+  .section-title { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-flex">
+    <div class="logo">MarketBoost</div>
+    <nav class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="suppliers.html" class="active">Поставщикам</a>
+      <a href="entrepreneur.html">Запуск магазина</a>
+      <a href="ozon-services.html">Услуги Ozon</a>
+      <a href="investors.html">Инвесторам</a>
+      <a href="b2b.html">B2B-услуги</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Поставщикам и Производителям</h1>
+    <p>Масштабируйте продажи на маркетплейсах без отвлечения ресурсов от основного производства. Мы берем на себя весь цикл: от регистрации бренда до управления рекламой и логистикой.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">Стать поставщиком</a>
+      <a href="#process" class="btn btn-outline">Как мы работаем</a>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-gray">
+  <div class="container">
+    <h2 class="section-title">Почему производители выбирают нас</h2>
+    <p class="section-subtitle">Мы создаем условия, при которых вам выгодно работать с нами</p>
+    
+    <div class="cards-grid">
+      <div class="card">
+        <h3>🤝 Гибкие финансовые условия</h3>
+        <ul>
+          <li>Прием товаров на реализацию</li>
+          <li>Отсрочка платежа 2–3 месяца (под ротацию и пополнение стоков)</li>
+          <li>Прозрачная еженедельная отчетность по продажам и остаткам</li>
+          <li>Оплата по факту реализации — вы не рискуете</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🚀 Мы берем на себя весь цикл</h3>
+        <ul>
+          <li>Регистрация бренда и сертификация продукции</li>
+          <li>Создание дизайнерской упаковки и инфографики</li>
+          <li>SEO-оптимизация карточек и управление рекламой</li>
+          <li>Логистика, работа с отзывами и рейтингом</li>
+          <li>Участие в акциях Ozon и Wildberries</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📈 Ваш результат</h3>
+        <ul>
+          <li>Новый канал сбыта без затрат на штат маркетологов</li>
+          <li>Рост узнаваемости бренда на федеральном уровне</li>
+          <li>Стабильные платежи по согласованному графику</li>
+          <li>Доступ к аналитике и обратной связи от покупателей</li>
+          <li>Возможность тестировать новые продукты</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Что вы получаете</h2>
+    <p class="section-subtitle">Комплексное решение для выхода на маркетплейсы</p>
+    
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🏭</div>
+        <h3>Фулфилмент</h3>
+        <p>Приемка, хранение, упаковка и отгрузка на склады маркетплейсов (FBO/FBS)</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎨</div>
+        <h3>Дизайн упаковки</h3>
+        <p>Разработка уникальной упаковки и инфографики для карточек товаров</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📋</div>
+        <h3>Сертификация</h3>
+        <p>Получение деклараций соответствия, сертификатов, отказных писем</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">™️</div>
+        <h3>Регистрация ТЗ</h3>
+        <p>Полное юридическое сопровождение регистрации торговой марки</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📊</div>
+        <h3>SEO и реклама</h3>
+        <p>Оптимизация карточек, настройка рекламных кампаний, управление ставками</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💬</div>
+        <h3>Работа с отзывами</h3>
+        <p>Мониторинг отзывов, ответы покупателям, управление рейтингом</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📈</div>
+        <h3>Аналитика</h3>
+        <p>Еженедельные отчеты по продажам, остаткам, конверсии и ROI</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎯</div>
+        <h3>Участие в акциях</h3>
+        <p>Стратегическое участие в промо-акциях Ozon и Wildberries</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="section bg-blue">
+  <div class="container">
+    <h2 class="section-title">Как мы работаем</h2>
+    <p class="section-subtitle">Прозрачный процесс от первого контакта до стабильных продаж</p>
+    
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Знакомство и анализ</h3>
+          <p>Обсуждаем ваш продукт, целевую аудиторию, конкурентов. Оцениваем потенциал выхода на маркетплейсы.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Стратегия и договор</h3>
+          <p>Разрабатываем стратегию выхода, согласовываем условия сотрудничества (реализация/отсрочка), подписываем договор.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Подготовка к запуску</h3>
+          <p>Регистрируем бренд, получаем сертификаты, создаем упаковку, готовим карточки товаров с SEO-оптимизацией.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Запуск и продвижение</h3>
+          <p>Загружаем товары на склады, настраиваем рекламу, запускаем первые продажи, участвуем в акциях.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Масштабирование</h3>
+          <p>Анализируем результаты, оптимизируем ассортимент, расширяем географию продаж, увеличиваем обороты.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Для каких производителей мы работаем</h2>
+    <p class="section-subtitle">Мы специализируемся на товарах народного потребления</p>
+    
+    <div class="cards-grid">
+      <div class="card">
+        <h3>🏠 Товары для дома</h3>
+        <ul>
+          <li>Хозяйственные принадлежности</li>
+          <li>Организация хранения</li>
+          <li>Уборка и чистка</li>
+          <li>Кухонные принадлежности</li>
+          <li>Текстиль для дома</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🔧 Инструменты и оборудование</h3>
+        <ul>
+          <li>Ручной инструмент</li>
+          <li>Электроинструмент</li>
+          <li>Измерительные приборы</li>
+          <li>Крепеж и фурнитура</li>
+          <li>Садовый инвентарь</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🐾 Зоотовары</h3>
+        <ul>
+          <li>Корма и лакомства</li>
+          <li>Аксессуары для животных</li>
+          <li>Игрушки для pets</li>
+          <li>Средства ухода</li>
+          <li>Лежаки и домики</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>💍 Ювелирные изделия</h3>
+        <ul>
+          <li>Бижутерия</li>
+          <li>Серебряные украшения</li>
+          <li>Часы и аксессуары</li>
+          <li>Подарочная упаковка</li>
+          <li>Персонализированные изделия</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section form-section">
+  <div class="container">
+    <h2 class="section-title">Станьте нашим поставщиком</h2>
+    <div class="form-container">
+      <form id="contactForm">
+        <div class="form-group">
+          <label>Ваше имя</label>
+          <input type="text" placeholder="Иван Иванов" required>
+        </div>
+        <div class="form-group">
+          <label>Название компании</label>
+          <input type="text" placeholder="ООО "Пример"" required>
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" placeholder="+7 (999) 000-00-00" required>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" placeholder="example@mail.ru" required>
+        </div>
+        <div class="form-group">
+          <label>Какие товары производите?</label>
+          <textarea rows="3" placeholder="Например: Производим хозтовары: швабры, ведра, губки. Хотим обсудить условия отсрочки 2 месяца"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
+        <p style="font-size: 12px; color: #888; text-align: center; margin-top: 15px;">
+          Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>MarketBoost</h4>
+        <p>Профессиональный вывод товаров на маркетплейсы. Работаем с производителями на условиях реализации и отсрочки.</p>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <p>📞 +7 (XXX) XXX-XX-XX</p>
+        <p>✉️ info@marketboost.ru</p>
+        <p>📍 г. Нижний Новгород</p>
+      </div>
+      <div>
+        <h4>Реквизиты</h4>
+        <p>ИП Финошкин Евгений Александрович</p>
+        <p>ИНН: 525821117212</p>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <p>© 2026 MarketBoost. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в течение 24 часов.');
+  this.reset();
+});
+</script>
+
+</body>
+</html>
